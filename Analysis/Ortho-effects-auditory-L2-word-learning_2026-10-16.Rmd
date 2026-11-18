@@ -256,7 +256,6 @@ Phonological form | Target `<`o`>` | Target `<`a`>` | Distractor 1 | Distractor 
 ```{r echo = F, results = 'hide', eval = T, cache=T}
 # Prepare talker vowel midpoint data for visualization
 # read in data
-#d <- read.csv("/Users/mdailey/Downloads/UNIL/FNS_Audrey_WP3/Experiment2_Arina/Data/Data_collection_Preprocessing/Arina_speaker_audio-files_all/model-talker-learning-tokens-formants-2.txt",sep="\t",header=T)
 
 d <- read.csv("model-talker-learning-tokens-formants-2.txt",sep="\t",header=T)
 
@@ -323,7 +322,7 @@ d_o5 = d_o
 
 ```{r echo = F, results = 'hide', eval = T, cache=T}
 
-pm <- read_csv("Day2_PictMap_respdata_all28sujs_July2025.csv")
+pm <- read_csv("Day2_PictMap_respdata_all28sujs_July.csv")
 
 # overall Mean accuracy rate + SD
 mean_pm_acc <- mean(pm$Correct)
@@ -360,25 +359,8 @@ total_pm_resp = 1568
   
 ```{r, echo=F, results="hide", fig.show='hide'}
 # Read data 
-#fs <- read_csv("/Users/mdailey/Downloads/UNIL/FNS_Audrey_WP3/Experiment2_Arina/DataAnalysis/results_FormantsSpelling_31participants_withAcc_Apr-8-2025.csv")
 
-
-# Responses on dictation by vowel letter and participant 
-#dpv <- data_frame(ID = fsd$ID,item=fsd$item, vowel_letter = fsd$vowel_letter, vowel_letter_3way= fsd$vowel_letter_3way, vowel_letter_4way=fsd$vowel_letter_4way,English=fsd$English)
-
-#dpv$ID = as.character(dpv$ID)
-
-## Looking at dpv object, I realized that vowel_letter_3way and vowel_letter_4way are incorrectly coded!! 
-## any digraph response that contains o or a is coded as o and a in these columns, which leaves only 3 responses categories total : o, a, u
-
-#write_csv(dpv, "dpv.csv")
-
-#dpv <- read.csv("dpv.csv",sep=";")
-
-# Sept 12th : load in corrected data that is part of big data
-#fs <- read_csv("/Users/mdailey/Downloads/UNIL/FNS_Audrey_WP3/Experiment2_Arina/DataAnalysis/results_FormantsSpelling_withAccNorm_33participants_Sep-15-2025.csv")
-
-fs <- read_csv("results_FormantsSpelling_withAccNorm_33participants_Sep-15-2025.csv")
+fs <- read_csv("results_FormantsSpelling_withAccNorm_33participants_Sep-15.csv")
 
 fsd <- subset(fs, str_detect(fs$name, "-2"))
 
@@ -440,9 +422,9 @@ div_bar
 
 ```{r echo = F, results = 'hide', eval = T, cache=T}
 # Read in data
-#c_data <- read_csv('/Users/mdailey/Downloads/UNIL/FNS_Audrey_WP3/Experiment2_Arina/DataAnalysis/results_Categorization_34participants_Sep-11-2025.csv')
+#c_data <- read_csv('/Users/mdailey/Downloads/UNIL/FNS_Audrey_WP3/Experiment2_Arina/DataAnalysis/results_Categorization_34participants_Sep-11.csv')
 
-c_data <- read_csv('results_Categorization_34participants_Sep-11-2025.csv')
+c_data <- read_csv('results_Categorization_34participants_Sep-11.csv')
 
 # Exclude the 6 excluded subjects : 95411, 24480, 102423, 87920, 92586, 72141
 c_data <- c_data[-which(c_data$uniqueID %in% c("72141","92586","24480","95411","102423","87920")),]
@@ -758,9 +740,9 @@ m2_table_select$term <- plyr::mapvalues(m2_table_select$term, m2_table_select$te
 
 ```{r echo = F, results = 'hide', eval = T, cache=T}
 # Load formant & spelling data
-#f_data <- read_csv('/Users/mdailey/Downloads/UNIL/FNS_Audrey_WP3/Experiment2_Arina/DataAnalysis/results_FormantsSpelling_withAccNorm_33participants_Sep-15-2025.csv')
+#f_data <- read_csv('/Users/mdailey/Downloads/UNIL/FNS_Audrey_WP3/Experiment2_Arina/DataAnalysis/results_FormantsSpelling_withAccNorm_33participants_Sep-15.csv')
 
-f_data <- read_csv('results_FormantsSpelling_withAccNorm_33participants_Sep-15-2025.csv')
+f_data <- read_csv('results_FormantsSpelling_withAccNorm_33participants_Sep-15.csv')
 
 # exclude excluded subjects
 f_data <- f_data[-which(f_data$ID %in% c("72141","92586","24480","95411","102423","87920")),]
@@ -1140,10 +1122,9 @@ library(ggplot2)
 # Vowel plot 
 # reload data (because centered, etc.)
 # Load formant & spelling data ready for visualization, from Dictee_graphs_adapted_Arina-participants.R
-#d_o4 <- read_csv('/Users/mdailey/Downloads/UNIL/FNS_Audrey_WP3/Experiment2_Arina/DataAnalysis/d_o5_data4vis_F1xF2BladonplotXDictee_15092025.csv')
 
 
-d_o4 <- read_csv('d_o5_data4vis_F1xF2BladonplotXDictee_15092025.csv')
+d_o4 <- read_csv('d_o5_data4vis_F1xF2BladonplotXDictee.csv')
 
 
 summary(d_o4)

@@ -1,0 +1,144 @@
+### Appendix 1
+Vowel midpoints of pseudoword stimuli produced by talker (Bark scale). Each pseudoword was produced four times. 
+```{r}
+# Normalized F1 x F2 (Bark scale) of all stimulus items produced by talker in training
+p_o5_norm <- ggplot(d_o5, aes(x=F2_Bark, y=F1_Bark, label=item)) + 
+  theme_bw(base_size=12)+geom_text()+scale_x_reverse()+scale_y_reverse()+xlab("normalized F2")+ylab("normalized F1")+
+  ggtitle("")+theme(legend.position = 'none')
+
+p_o5_norm2 <- p_o5_norm + scale_x_reverse(
+  limits = c(13,7),
+  breaks = c(13,12,11,10,9,8,7),
+  labels = c("13","","11","","9","","7")
+) + scale_y_reverse(
+  limits = c(8,3),
+  breaks = c(8,7,6,5,4,3),
+  labels = c("", "7", "", "5", "", "3")
+)+theme_bw(base_size=11) + theme(legend.position = 'none') + xlab("Normalized F2")+ylab("Normalized F1")
+  #ggtitle("Talker Vowel Plot (Bark) - All Stimulus Items")
+#+ stat_ellipse(aes(linetype=grapheme_typed2))
+#p_o4_norm
+p_o5_norm2
+
+```
+
+### Appendix 2
+Dictation responses by vowel item.
+```{r}
+
+div_bar <- ggplot(div_count, aes(x=item, y=n,fill=vowel_letter_4way))+
+  geom_bar(stat="identity",position="stack",width=0.9) +
+  theme_minimal() +
+  #ggtitle("Dictation vowel letter responses by item")+
+  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1),legend.position="bottom",axis.text=element_text(size=11))+
+  labs(fill= "Vowel Letter",x="Item")+
+  scale_fill_brewer(palette="Set2")
+div_bar
+
+```
+
+## Appendix 3
+
+```{r}
+
+kable(
+  m_table_select,
+  col.names = c("Predictors", "Estimate", "SE", "p"),
+  digits = 3,
+  longtable = T,
+  caption = "Old/New: Proportion Old responses by Match (to response in Dictation) and Button Order",
+  booktabs = T
+  ) %>%
+  row_spec(0,italic = TRUE) %>%
+  kable_styling()
+
+
+```
+
+    
+```{r}
+
+kable(
+  m2_table_select,
+  col.names = c("Predictors", "Estimate", "SE", "p"),
+  digits = 3,
+  longtable = T,
+  caption = "Old/New: Response latencies by Match (to response in Dictation) and Button Order",
+  booktabs = T
+  ) %>%
+  row_spec(0,italic = TRUE) %>%
+  kable_styling()
+
+
+
+
+```
+
+## Appendix 4
+
+```{r}
+
+kable(
+  f1_table_select,
+  col.names = c("Predictors", "Estimate", "SE", "p"),
+  digits = 3,
+  longtable = T,
+  caption = "Picture Naming: F1 (first formant) by Vowel letter response in Dictation",
+  booktabs = T
+  ) %>%
+  row_spec(0,italic = TRUE) %>%
+  kable_styling()
+
+```
+
+
+```{r}
+
+kable(
+  f2_table_select,
+  col.names = c("Predictors", "Estimate", "SE", "p"),
+  digits = 3,
+  longtable = T,
+  caption = "Picture Naming: F2 (second formant) by Vowel letter response in Dictation",
+  booktabs = T
+  ) %>%
+  row_spec(0,italic = TRUE) %>%
+  kable_styling()
+
+
+```
+
+
+## Appendix 5
+
+```{r}
+
+kable(
+  f1_tF1_table_select,
+  col.names = c("Predictors", "Estimate", "SE", "p"),
+  digits = 3,
+  longtable = T,
+  caption = "Picture Naming: F1 (first formant) by Vowel letter response in Dictation and Talker F1",
+  booktabs = T
+  ) %>%
+  row_spec(0,italic = TRUE) %>%
+  kable_styling()
+
+```
+
+
+```{r}
+
+kable(
+  f2_tF2_table_select,
+  col.names = c("Predictors", "Estimate", "SE", "p"),
+  digits = 3,
+  longtable = T,
+  caption = "Picture Naming: F2 (second formant) by Vowel letter response in Dictation and Talker F2",
+  booktabs = T
+  ) %>%
+  row_spec(0,italic = TRUE) %>%
+  kable_styling()
+
+```
+

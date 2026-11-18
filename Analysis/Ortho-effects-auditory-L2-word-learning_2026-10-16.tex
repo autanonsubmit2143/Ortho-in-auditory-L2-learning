@@ -1,0 +1,638 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+  english,
+  man,floatsintext]{apa7}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+\usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\ifLuaTeX
+\usepackage[bidi=basic,shorthands=off]{babel}
+\else
+\usepackage[bidi=default,shorthands=off]{babel}
+\fi
+\ifLuaTeX
+  \usepackage{selnolig} % disable illegal ligatures
+\fi
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+% Manuscript styling
+\usepackage{upgreek}
+\captionsetup{font=singlespacing,justification=justified}
+
+% Table formatting
+\usepackage{longtable}
+\usepackage{lscape}
+% \usepackage[counterclockwise]{rotating}   % Landscape page setup for large tables
+\usepackage{multirow}		% Table styling
+\usepackage{tabularx}		% Control Column width
+\usepackage[flushleft]{threeparttable}	% Allows for three part tables with a specified notes section
+\usepackage{threeparttablex}            % Lets threeparttable work with longtable
+
+% Create new environments so endfloat can handle them
+% \newenvironment{ltable}
+%   {\begin{landscape}\centering\begin{threeparttable}}
+%   {\end{threeparttable}\end{landscape}}
+\newenvironment{lltable}{\begin{landscape}\centering\begin{ThreePartTable}}{\end{ThreePartTable}\end{landscape}}
+
+% Enables adjusting longtable caption width to table width
+% Solution found at http://golatex.de/longtable-mit-caption-so-breit-wie-die-tabelle-t15767.html
+\makeatletter
+\newcommand\LastLTentrywidth{1em}
+\newlength\longtablewidth
+\setlength{\longtablewidth}{1in}
+\newcommand{\getlongtablewidth}{\begingroup \ifcsname LT@\roman{LT@tables}\endcsname \global\longtablewidth=0pt \renewcommand{\LT@entry}[2]{\global\advance\longtablewidth by ##2\relax\gdef\LastLTentrywidth{##2}}\@nameuse{LT@\roman{LT@tables}} \fi \endgroup}
+
+% \setlength{\parindent}{0.5in}
+% \setlength{\parskip}{0pt plus 0pt minus 0pt}
+
+% Overwrite redefinition of paragraph and subparagraph by the default LaTeX template
+% See https://github.com/crsh/papaja/issues/292
+\makeatletter
+\renewcommand{\paragraph}{\@startsection{paragraph}{4}{\parindent}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries\itshape\typesectitle}}
+
+\renewcommand{\subparagraph}[1]{\@startsection{subparagraph}{5}{1em}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-\z@\relax}%
+  {\normalfont\normalsize\itshape\hspace{\parindent}{#1}\textit{\addperi}}{\relax}}
+\makeatother
+
+\makeatletter
+\usepackage{etoolbox}
+\patchcmd{\maketitle}
+  {\section{\normalfont\normalsize\abstractname}}
+  {\section*{\normalfont\normalsize\abstractname}}
+  {}{\typeout{Failed to patch abstract.}}
+\patchcmd{\maketitle}
+  {\section{\protect\normalfont{\@title}}}
+  {\section*{\protect\normalfont{\@title}}}
+  {}{\typeout{Failed to patch title.}}
+\makeatother
+
+\usepackage{xpatch}
+\makeatletter
+\xapptocmd\appendix
+  {\xapptocmd\section
+    {\addcontentsline{toc}{section}{\appendixname\ifoneappendix\else~\theappendix\fi: #1}}
+    {}{\InnerPatchFailed}%
+  }
+{}{\PatchFailed}
+\makeatother
+\keywords{Second language, orthography, word learning, speech production, phonological representations}
+\usepackage{lineno}
+
+\linenumbers
+\usepackage{csquotes}
+\usepackage{array}
+\usepackage{longtable}
+\newcommand\textstyleStrongEmphasis[1]{\textbf{#1}}
+\makeatletter
+\newcommand\arraybslash{\let\\\@arraycr}
+\usepackage{tipa}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{ragged2e}
+\usepackage{fancyhdr}
+\fancypagestyle{titlepage}{\fancyhead{}}
+\fancypagestyle{plain}{\fancyhead{}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+% fallback for those not using the hyperref driver hyperxmp:
+\makeatletter
+\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
+\makeatother
+\hypersetup{
+  pdftitle={Does orthographic knowledge influence pronunciation in auditory-only L2 word learning?},
+  pdflang={en-EN},
+  pdfkeywords={\xmpquote{Second language, orthography, word learning, speech production, phonological representations}},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Does orthographic knowledge influence pronunciation in auditory-only L2 word learning?}
+\author{\phantom{0}}
+\date{}
+
+
+\shorttitle{.}
+
+\affiliation{\phantom{0}}
+
+\abstract{%
+In L2 word learning, exposure to orthography pulls productions towards L1 phonological targets. We examine the role of orthographic knowledge on the pronunciation of L2 words learned without orthographic input. French participants learned English pseudowords with /\textscripta / (spelled \texttt{\textless{}}o\texttt{\textgreater{}}) over the course of two days. (The closest vowels in Hexagonal French are /a/, spelled \texttt{\textless{}}a\texttt{\textgreater{}}, and to a lesser extent /\textopeno /, spelled \texttt{\textless{}}o\texttt{\textgreater{}}.) On Day 3, they named pseudowords aloud (Picture Naming), decided whether written forms were learned pseudowords (Old/New), then provided their own spellings (Dictation). Results showed a preference for \texttt{\textless{}}a\texttt{\textgreater{}} over \texttt{\textless{}}o\texttt{\textgreater{}} spellings in Old/New and Dictation and faster response times in Old/New for spellings that matched later Dictation responses. Further, Dictation spellings predicted variation in vowel productions, which aligned with L1 phonological targets. These results are compatible with the hypothesis that participants generated their own, L1-influenced spellings during auditory-only learning that served as phonological targets for pronunciation.
+}
+
+
+
+\begin{document}
+\maketitle
+
+\section{Introduction}\label{introduction}
+
+Learners of a second language (L2) encounter new words by hearing them (in the course of a conversation), reading them (in a message or on a sign in a shop window), or both (in the classroom or in a subtitled film). Results from several studies show that orthographic input during learning can lead to less native-like pronunciations in the target language (Bassetti, 2017; Bassetti \& Atkinson, 2015; Bürki, Welby, Clément, \& Spinelli, 2019; Hayes-Harb, Brown, \& Smith, 2018; Rafat, 2016; Rafat et al., 2021; Welby, Spinelli, \& Bürki, 2022b), especially in cases in which the learner's native (L1) and second (L2) languages share an alphabet and grapheme-to-phoneme correspondences (GPCs) conflict across languages. For instance, Hayes-Harb et al. (2018) investigated L1 English productions of German devoiced word-final obstruents {[}p,t,k{]}, which are represented with graphemes \texttt{\textless{}}b\texttt{\textgreater{}},\texttt{\textless{}}d\texttt{\textgreater{}}, and \texttt{\textless{}}g\texttt{\textgreater{}}, respectively, in German (e.g., {[}g\textepsilon lt{]} is written \emph{Geld} \textasciitilde{} ``money''). Influenced by (L1) English mappings of the graphemes to phonetically voiced {[}b,d,g{]}, participants were more likely to produce voiced obstruents word-finally (e.g., {[}g\textepsilon ld{]}) in German pseudowords learned with orthographic input than for words learned without.
+
+Interfering effects of orthographic input on pronunciation in L2 word learning have been documented along several phonological dimensions, including consonant voicing and manner of articulation, vowel and consonant length, and vowel quality, as well as epenthetic spelling pronunciations (e.g., producing a {[}b{]} at the end of \emph{lamb}) (Bassetti, 2017; Bassetti \& Atkinson, 2015; Bürki et al., 2019; Rafat et al., 2021). In our own work, we tested the effect of orthographic input on L1 French speakers' productions of English vowels /\textsci / and /\textscripta / (spelled \texttt{\textless{}}i\texttt{\textgreater{}} and \texttt{\textless{}}o\texttt{\textgreater{}}, respectively), which do not feature in Hexagonal French, in newly learned English pseudowords (e.g., \emph{nif} /n\textsci f/, \emph{gosk} /g\textscripta sk/). We found that participant vowel productions were more French-like in terms of vowel quality (i.e., were closer to the French vowels represented by the same graphemes, /i/ for \texttt{\textless{}}i\texttt{\textgreater{}}, and /\textopeno / for \texttt{\textless{}}o\texttt{\textgreater{}}) for words learned with orthographic input than for those learned with only the spoken form (Bürki et al., 2019; Welby et al., 2022b).
+
+Other studies report facilitative effects of orthographic input on L2 pronunciation, particularly in cases where orthographic forms draw attention to hard-to-acquire L2 phonemic contrasts (Rafat, 2015; Steele, 2005). For instance, Rafat (2015) tested naïve English speakers' productions of Spanish word-final fricative rhotics (e.g., \emph{ahumar} {[}auma\u{r}{]}). She found that participants who learned the words with orthographic input had higher rates of productions with rhotic consonants (both fricative {[}\u{r}{]} and postalveolar approximant {[}\textturnr{]}) than participants in the auditory-only learning condition, who were more likely to assimilate {[}\u{r}{]} to English /\textesh /. In still other studies, both less and more native-like productions in word learning with orthographic input have been observed for different forms of the same word (Barrios \& Hayes-Harb, 2020).
+
+This body of work informs us about the impact of orthographic input on learners' productions of novel L2 words and suggests either that information about the spelling of a word is integrated directly into its phonological representation, or that during speaking, stored orthographic information is activated together with phonological information to influence pronunciation. Importantly, these findings do not address how orthographic knowledge could influence productions when a novel word has been experienced solely in its auditory form. There is both behavioral and neural evidence that orthographic mappings are activated in auditory-only speech perception in adults (Chéreau, Gaskell, \& Dumay, 2007; Perre \& Ziegler, 2008; Taft, Castles, Davis, Lazendic, \& Nguyen-Hoan, 2008; Ziegler \& Ferrand, 1998; Ziegler, Ferrand, \& Montant, 2004). In all of these studies, known L1 words that have only one possible spelling (orthographically consistent words) were recognized faster than words that have multiple possible spellings (orthographically inconsistent words) in unimodal auditory lexical decision. Further, Perre and Ziegler (2008) observed a neural response time-locked with sounds that are orthographically inconsistent that was absent for orthographically consistent words, suggesting that it was the activation of multiple orthographic mappings in the former case that resulted in slower lexical decision times.
+
+Given this evidence, researchers have sought to test whether orthographic mappings are activated when listeners encounter \emph{novel} spoken words. In Johnston, McKague, and Pratt (2004), adult participants learned unfamiliar L1 words and their definitions by hearing and repeating them back to an experimenter, with no exposure to their possible spellings. In a series of visual lexical decision experiments with masked repetition priming with the learned words, as well as with familiar L1 words and untrained nonwords, faster reaction times were observed in identity priming (e.g., coggle-COGGLE) and pseudohomophone priming (koggil-COGGLE) conditions than for a control condition (e.g., banper-COGGLE) for visually-novel spellings of the learned words, but not for untrained nonwords. For familiar words but not for the newly-learned words, reaction times were faster in identity priming than in the pseudohomophone priming conditions. The authors interpreted their findings as evidence that participants had generated broadly-specified orthographic representations of novel words during learning. Further investigations in auditory word learning paradigms with sentence reading (Wegener et al., 2023, 2018) demonstrate that both literate children and adults show a preference (i.e., faster reading times) for canonical over non-canonical spellings for newly learned L1 words upon first visual presentation. Collectively, these results are consistent with an account in which learners automatically generate expectations for the spellings of novel spoken words upon hearing them for use in the subsequent processing of their written forms.
+
+In the present study, we test the hypothesis that orthographic representations generated in auditory word learning influence learner pronunciations of novel L2 words. In Welby et al. (2022b), we found that French productions of the English vowel /\textscripta / in words learned with auditory input only were more variable than for words learned with both auditory and orthographic input. We speculated that the larger dispersion of vowels in the vowel space for the words learned without orthographic input could reflect differences in generated orthographic representations across participants or words, as GPCs for French and English low back vowels are not cross-linguistically consistent. For instance, when hearing /bl\textscripta p/, some participants may generate the spelling ``blap'' (drawing from the GPC of nearby French /a/ with \texttt{\textless{}}a\texttt{\textgreater{}}), while others would generate the spelling ``blop'' (in line with the typical English spelling convention), and these differences could in turn be reflected in their pronunciations. This is the hypothesis we aim to test here.
+
+\section{The present study}\label{the-present-study}
+
+Building on evidence that listeners generate orthographic representations for novel words in the absence of orthographic input, we ask whether generated orthographic representations in turn impact their pronunciations. We compare the performance of L1 French speakers on three tasks in an English pseudoword learning paradigm. In the learning phase (Days 1 \& 2), participants learned to associate auditorily-presented English pseudowords all featuring the low vowel /\textscripta/ (e.g., /bl\textscripta p/) with images of rare plants, animals, and objects, without any orthographic input. In the test phase (Day 3), participants completed, in the order listed, a Picture Naming task (Task 1), in which they named pseudowords aloud upon seeing their associated images, an Old/New task (Task 2), in which they decided as quickly as possible whether presented orthographic word forms were words they learned (Old) or not (New) (with two target spelling conditions: grapheme \texttt{\textless{}}o\texttt{\textgreater{}} \emph{blop} \textasciitilde{} grapheme \texttt{\textless{}}a\texttt{\textgreater{}} \emph{blap}), and a Dictation task (Task 3), in which they provided their own spelling for each auditorily-presented pseudoword. Note that participants encountered orthographic word forms for the first time in the Old/New task on Day 3, after spoken responses from the Picture Naming task were recorded. See Figure 1 for a schematization of the full experiment design.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth,height=0.4\textheight]{Learning-phase-2} 
+
+}
+
+\caption{Design schema for the different phases of the experiment.}\label{fig:unnamed-chunk-1}
+\end{figure}
+
+English /\textscripta/, typically represented with the grapheme \texttt{\textless{}}o\texttt{\textgreater{}} in closed syllables (as in /st\textscripta p/ \textasciitilde{} \emph{stop}), is produced close to but backer than French /a/, written \texttt{\textless{}}a\texttt{\textgreater{}} (as in /baz/ \textasciitilde{} \emph{base}), and to a lesser extent close to yet lower and fronter than French /\textopeno/, written \texttt{\textless{}}o\texttt{\textgreater{}} (as in /p\textopeno m/ \textasciitilde{} \emph{pomme}). Preliminary evidence from previous work (Welby, Spinelli, and Bürki (2022a)) demonstrates that L1 French learners of English primarily use \texttt{\textless{}}a\texttt{\textgreater{}} and \texttt{\textless{}}o\texttt{\textgreater{}} when asked to spell English pseudowords with /\textscripta/ that they have heard but have never seen in writing. If French participants rely more on their L1 GPCs to map vowels in English pseudowords to graphemes, we predict that they will spell pseudowords with the grapheme \texttt{\textless{}}a\texttt{\textgreater{}} (e.g, \emph{blap}) at a higher rate than with \texttt{\textless{}}o\texttt{\textgreater{}}. If they use their knowledge of English GPCs, we predict more spellings with the grapheme \texttt{\textless{}}o\texttt{\textgreater{}} (e.g., \emph{blop}) than with \texttt{\textless{}}a\texttt{\textgreater{}}, in line with English spelling conventions. Crucially, regardless of the distribution of spelling preferences that will be observed, it is the choice between \texttt{\textless{}}a\texttt{\textgreater{}} and \texttt{\textless{}}o\texttt{\textgreater{}} that will be used to test the hypotheses under consideration here. To test whether L2 learners generate spellings from auditorily-learned pseudowords, we will compare alignment on observed spelling preferences in the Old/New task (Task 2) to later spelling responses in Dictation (Task 3). To test whether L2 learners' spellings are reflected in their pronunciations, we will measure whether vowel formants in Picture Naming responses (Task 1) can be predicted by the vowel letter given in later Dictation (Task 3) responses.
+
+Our predictions are as follows: first, in line with the hypothesis in the literature that listeners generate orthographic representations of auditorily-learned pseudowords in the absence of orthographic input, we expect a higher rate of Old responses ``yes, I learned this word'' and faster reaction times in the Old/New task for orthographic word forms that match participants' own later spellings in the Dictation task (i.e., for ``blap'' responses in Dictation, we expect a higher rate of Old responses and faster reaction times for matching orthographic word form \emph{blap} over mismatching \emph{blop} in the Old/New task). Such a result would indicate participants formed a preference of one orthographic word form over another by or upon their first encounter of pseudoword spellings in the Old/New task, suggesting that an orthographic representation was generated prior to exposure to the written form. Second, if generated orthographic representations influence pronunciations of novel pseudowords even in the absence of orthographic input, then we expect formant values of vowels in Picture Naming responses to align more closely with the vowels corresponding to the vowel letter provided in participants' later Dictation spellings (i.e., vowels for items later spelled with \texttt{\textless{}}a\texttt{\textgreater{}} would be fronter and lower, and vowels for items spelled with \texttt{\textless{}}o\texttt{\textgreater{}} would be higher and backer). Such a result would be in line with an involvement of orthographic knowledge in the formation of vowel production targets in L2 pseudowords before exposure to the orthographic form.
+
+\section{Methods}\label{methods}
+
+\subsection{Participants}\label{participants}
+
+Participants were 35 native French-speaking adults fluent in English (self-reported), recruited via Prolific (www.prolific.com). All were French, residing in France, and reported no history of vision or hearing impairments or learning disorders. Informed consent was obtained via an electronic consent form, and participants were compensated €20 for approximately one and half hours of experiment time. The data of seven participants were excluded from analyses for the following reasons: four reported learning English before the age of six, one submitted low quality audio recordings, one did not follow task instructions, and one participant's data were lost due to a server malfunction.
+
+Responses from the remaining 28 participants were included in analyses. These participants were aged 18 to 35 years old (median=27,SD=4.40), and started learning English at on average 9.29 years of age (range=6-13 years, SD=2.11) in school. Participants rated their English oral comprehension and production skills at 9.43 (SD=0.96) and 8.61 (SD=1.29) out of 10, respectively, and estimates of their current exposure to English ranged anywhere from 9-70\% (mean=24.07, SD=17.17).
+
+\subsection{Materials}\label{materials}
+
+Stimuli were 14 phonotactically plausible English pseudowords, all monosyllabic with C(C)VC(C) syllable structure and featuring the low back vowel /\textscripta/ (e.g., /bl\textscripta p/; see Table 1 for full list). Pseudoword consonant segments were restricted to those that appear in both French and English phonological inventories, and there were no minimal pairs in the list. The /\textscripta/ vowel was chosen for pseudowords because it exhibits conflicting grapheme-to-phoneme correspondences (GPCs) between French and English. In English, /\textscripta/ is typically represented with an \texttt{\textless{}}o\texttt{\textgreater{}} grapheme (e.g., \emph{stop} /st\textscripta p/). In Hexagonal French, there is no /\textscripta/ vowel, therefore, French listeners are expected to perceptually assimilate /\textscripta/ either to French /a/, which is typically represented with an \texttt{\textless{}}a\texttt{\textgreater{}} grapheme in French (e.g., \emph{base} /baz/), or to French /\textopeno/, which is typically represented with grapheme \texttt{\textless{}}o\texttt{\textgreater{}} in French (e.g., \emph{pomme} /p\textopeno m/).
+
+Pseudowords were recorded by a male native speaker of North American English from Florida\textsuperscript{1}. The speaker read the pseudowords aloud from a list at a self-selected speaking rate, reading through the entire list sequentially four times. Materials were recorded in a quiet room using an AKG C520 L head-worn microphone and a Zoom H4nSP Handy recorder at a sampling rate of 44.1 kHz. All four tokens of each pseudoword were played in the learning phase, and the first token of each item was played during the Dictation task in the test session.
+
+Pseudowords were paired with images of rare plants, animals, and objects for the learning sessions and the Picture Naming task in the test session. Rare plants, animals, and objects were chosen to ensure participants would not already have learned their real English names. All stimuli including recordings and images can be found at the open repository for the project \href{https://github.com/anonautforsub4556743/Ortho-knowledge-auditory-L2-word-learning}{here.}
+
+For each pseudoword, a set of four spellings was generated for use in the Old/New task (Table 1). The two target spellings featured \texttt{\textless{}}o\texttt{\textgreater{}} and \texttt{\textless{}}a\texttt{\textgreater{}} graphemes (e.g., \emph{blop} and \emph{blap}). In addition, two distractor spellings were created, featuring one- and two-phoneme transformations of the original pseudowords. The one-phoneme transformation spelling always featured the graphemes \texttt{\textless{}}i\texttt{\textgreater{}} or \texttt{\textless{}}e\texttt{\textgreater{}} (e.g., \emph{blep}), corresponding to front high or mid-high vowels in both French and English, and the two-phoneme transformation spelling featured the other front high or mid-high vowel grapheme and a different consonant coda grapheme (e.g., \emph{blit}). Graphemes corresponding to high and mid-high vowels were used in the distractor spelling sets because they represent vowels that are far in the vowel space from the target low vowels. As in the original pseudoword list, only consonant graphemes present in both English and French were used in the distractor spelling lists.
+
+\textbf{Table 1.} Pseudoword target and distractor spelling sets
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2769}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1538}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1538}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2154}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Phonological form
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Target \texttt{\textless{}}o\texttt{\textgreater{}}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Target \texttt{\textless{}}a\texttt{\textgreater{}}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Distractor 1
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Distractor 2
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+/bl\textscripta p/ & blop & blap & blep & blit \\
+/b\textscripta lf/ & bolf & balf & bilf & belk \\
+/d\textscripta p/ & dop & dap & dep & dif \\
+/gl\textscripta g/ & glog & glag & glig & glet \\
+/g\textscripta sk/ & gosk & gask & gesk & gisp \\
+/l\textscripta sp/ & losp & lasp & lesp & lisk \\
+/m\textscripta z/ & moz & maz & mez & mif \\
+/n\textscripta f/ & nof & naf & nif & nep \\
+/sk\textscripta k/ & skock & skack & skick & skep \\
+/sl\textscripta z/ & sloz & slaz & sliz & slev \\
+/t\textscripta v/ & tov & tav & tiv & teb \\
+/v\textscripta d/ & vod & vad & ved & vig \\
+/z\textscripta t/ & zot & zat & zet & zib \\
+/z\textscripta ks/ & zox & zax & zix & zet \\
+\end{longtable}
+}
+
+1 The speaker comes from a dialect region where the most common low back vowel system includes a singular (merged) /\textscripta/ vowel. An F1 X F2 plot of the speaker's normalized vowel midpoints for recorded stimulus tokens can be found in Appendix 1.
+
+\subsection{Design and procedure}\label{design-and-procedure}
+
+The experiment was run online with PCIbex Farm, an open-source experiment-building software and hosting platform (Zehr \& Schwarz, 2018). Participants completed two learning sessions and one test session over the course of three days. No fewer than one day and no more than two days passed between sessions. At the end of the final session, participants completed an online version of the LEAP-Q language background questionnaire (Marian, Blumenfeld, \& Kaushanskaya, 2007), administered through the SoSciSurvey platform (Leiner, 2024) at www.soscisurvey.de.
+
+At the beginning of each session, participants were instructed to sit in a quiet environment with their computer and a pair of headphones equipped with a microphone. They were instructed to first adjust the sound level to a comfortable volume on the basis of a short audio file of speech-shaped noise that they could replay as many times as needed. Then, they completed a psychophysical task to verify proper headphone use (Woods, Siegel, Traer, \& McDermott, 2017). Finally, they signed a digitalized consent form for their participation. The overall design of the experiment is summarized in Figure 1.
+
+\emph{Day 1: Learning Session 1}
+
+Participants were told that they would be learning new English words for a language learning app under development by an American company, and that they would be tested on how well they had learned the words. Each trial proceeded as follows: an image appeared in the center of the screen, followed 1000 milliseconds later by the onset of the audio recording of the corresponding pseudoword. The image remained on the screen until 3000 milliseconds after audio recording offset, at which point the next pseudoword image was presented to start the next trial. All four recordings of the 14 pseudowords were presented five times each in 20 consecutive blocks, for a total of 20 presentations of each pseudoword-image pair. The order of presentation of items in each block was randomized. Pseudowords were presented without any orthographic input, and participants were instructed not to take notes during the session. The Day 1 learning session lasted approximately twenty minutes.
+
+\emph{Day 2: Learning Session 2}
+
+The procedure for the Day 2 learning session was identical to that of Day 1, with one addition: at the end of the session, participants completed a Picture Mapping task to verify pseudoword acquisition. Participants heard each pseudoword and were asked to select its corresponding image in a two-alternative forced-choice (2AFC) task. Participants were given trial-by-trial feedback immediately after their response in the form of a brief message displayed on the screen (\emph{Correct!} or \emph{Incorrect!}). Pseudowords were presented four times in four consecutive blocks. Trial order within blocks was randomized, and image position in each trial was shuffled. Response accuracy on the Picture Mapping task was analyzed in order to exclude participants who did not engage in the learning tasks. The entire session lasted approximately 25 minutes. As in the previous session, no orthographic input for the pseudowords was provided.
+
+\emph{Day 3: Test Session}
+
+Participants completed three tasks in the test session, in the order presented below. The session lasted approximately twenty minutes.
+
+\emph{Task 1: Picture Naming.} Participants were presented with the images of the pseudowords learned on Days 1 and 2. Images were presented one by one on the screen for 5000 ms. A fixation cross was displayed in the center of the screen for 500 ms before each new image. Participants were asked to name the images aloud as quickly and as accurately as possible, and an audio recording of their responses was made. The 14 pseudowords were presented three times in three separate blocks. Presentation order was randomized within block. No orthographic word forms were presented with the images; thus, participants had no exposure to orthographic input at any point prior to or while completing the task. Vowel formant values were analyzed with later Dictation responses to determine whether pseudoword pronunciation varied as a function of participants' later proposed spellings (e.g., /bl\textscripta p/ produced lower and fronter when spelled ``blap'' than when spelled ``blop'').
+
+\emph{Task 2: Old/New.} Participants were presented with orthographic word forms on the screen, one after another, and were instructed to decide whether each word they saw was a pseudoword they had learned (Old) or not (New), as quickly and as accurately as possible via keyboard response. Orthographic word forms from the four spelling conditions (two target and two distractor conditions in Table 1; e.g., \emph{blop} \textasciitilde{} \emph{blap} \textasciitilde{} \emph{blep} \textasciitilde{} \emph{blit}) were presented to each participant in four blocks, such that one spelling per item was presented in each block; thus, all participants responded to all target and distractor spellings for all items. Block order (x4) and button response order (x2) were counterbalanced across eight groups of participants. No auditory forms of the pseudowords were presented during the task. Responses in this task were analyzed with later Dictation responses to determine whether participants had a higher rate of Old responses as well as shorter response latencies for the Old/New spellings that matched their own proposed spellings in Dictation (e.g., more Old responses and shorter response latencies to \emph{blop} \textgreater{} \emph{blap} when later spelled ``blop'' in the Dictation task).
+
+\emph{Task 3: Dictation.} Finally, participants heard each pseudoword once and were asked to type what they heard. Vowel letters from responses were analyzed in tandem with responses on the Picture naming and Old/New tasks, as described above. No images of the pseudowords were presented in this task.
+
+\section{Results}\label{results}
+
+Analyses were carried out with the lme4 package (Bates, Mächler, Bolker, \& Walker, 2015) in the R environment (R Core Team, 2024). The data and scripts used for all analyses can be found \href{https://github.com/anonautforsub4556743/Ortho-knowledge-auditory-L2-word-learning}{here.} Analyses consisted of (generalized) mixed-effects regressions conducted on responses and response latencies. In each model, fixed effects were contrast-coded using scaled sum contrast (i.e., with the values -0.5 and 0.5 assigned to the levels of the fixed effects) such that the intercept represented the grand mean and slopes represented differences between factor levels. Unless otherwise specified, the random effects structure was the maximal one supported by the design. When the model with the maximal structure did not converge, we removed the random slope that accounted for the least variance. Significance was established by means of a likelihood ratio test with nested models with the same random structure.
+
+\emph{Picture Mapping}
+
+Responses on the Day 2 Picture Mapping task were analyzed to ensure that participants had learned the pseudoword-image associations and were ready for the Day 3 Test session. Response accuracy was at ceiling: together the 28 participants gave only 47 incorrect responses out of 1,568 total responses (97\% accuracy rate). Participants thus had little difficulty associating images with the pseudoword labels, and none were excluded on the basis of poor performance. Responses in this task were not analyzed further.
+
+\emph{Dictation}
+
+Given that participant responses in the Dictation task are analyzed with the data in the Old/New and Picture Naming tasks, we start by describing the responses in this task. The bar chart in Appendix 2 displays the rate of spellings by chosen vowel letter for each item. The two most common spellings chosen for pseudowords (all with English vowel /\textscripta /) were those with vowel letters \texttt{\textless{}}a\texttt{\textgreater{}} (69\% of responses) and \texttt{\textless{}}o\texttt{\textgreater{}} (22\% of responses). Spellings with \texttt{\textless{}}u\texttt{\textgreater{}} were observed to a lesser extent (6\% of responses), and spellings with all other graphemes or digraphs (e.g., \texttt{\textless{}}oa\texttt{\textgreater{}}) had fewer than three responses each.
+
+\emph{Old/New}
+
+As an additional check of data quality, we first verified that all participants responded ``New'' (no, I did not learn this word) to the majority of distractor spellings. We also examined the rate of ``Old'' (yes, I learned this word) responses to target spellings. For this analysis, all responses were considered. In distractor trials, the rate of ``New'' responses was on average 93\% (sd=0.09), confirming that participants performed the task as expected.
+In target trials, the rate of ``Old'' responses for spellings with letter \texttt{\textless{}}a\texttt{\textgreater{}} was 78\% on average (sd=0.17), and for spellings with letter \texttt{\textless{}}o\texttt{\textgreater{}} 42\% on average (sd=0.27).
+
+\emph{Old/New X Dictation}
+
+Statistical analyses were then conducted on responses to items in target trials in the Old/New task as a function of responses on Dictation. Responses were restricted to those items that participants named correctly at least twice in Picture Naming (86.48\% of responses). The goal of these analyses was to test whether participants generated expectations for how the novel pseudowords they learned should be spelled, despite not having received any orthographic input during learning. Under this hypothesis, we expect participants to exhibit a higher proportion of Old responses and faster response latencies in the Old/New task for tokens which matched their later proposed spellings of a given pseudoword in Dictation.
+
+To measure this, a Match variable was created to link responses on the two tasks: i.e., for each participant and item, an Old response for target \emph{blop} and \emph{blop} spelling in Dictation was labelled Match, whereas an Old response for target \emph{blop} and \emph{blap} spelling was labelled Mismatch. (Recall that words were never presented auditorily in the Old/New task; only their written forms were presented.)
+
+For the first analysis, a generalized mixed-effects model with a logistic link was conducted with response types (Old=1, New=0) as the dependent variable, Match and Button group (i.e., whether the participant had to respond yes and no with the left and right hands, respectively or conversely) as predictors, random intercepts for participant and item, and a random by-item slope for Match. Button Group was included to control for potential effects of button position. Effect coding was used for both predictors.
+
+Results revealed an effect of Match in the expected direction (\(\beta\)=-4.26, SE=0.96, z=-4.44, \(\chi^2(1)\)=17.17, p\textless0.001), such that there was a higher proportion of Old responses in Match than Mismatch conditions.
+
+For the second analysis, visual inspection of the distribution of reaction times (RTs) led to the removal of the data points above 3000 milliseconds (5\% of data points). Latencies below 3000 milliseconds were then submitted to a linear mixed-effects regression with the same predictors as the previous model on responses, Match and Button Group, and with random intercepts for participant and item and random by-participant and by-item slopes for Match. Results revealed a main effect of Match such that matching responses across tasks led to shorter latencies (\(\beta\) =-303.53, SE=47.71, t=-6.36, \(\chi^2(1)\)=26.01, p\textless0.001). Full model outputs can be found in Appendix 3.
+
+The results from these analyses demonstrate that participants show a preference for and process faster those orthographic word forms in the Old/New task that match their later proposed spellings in the Dictation task.
+
+\emph{Picture Naming}
+
+Responses in Picture Naming were coded as correct if they were produced with all expected consonant phonemes in the correct order, a vowel in the same region of the vowel space as the target vowel (e.g., {[}bl\textscripta p{]}, {[}bl\textopeno p{]}, {[}blap{]} for \emph{blop}), and no additional phones. Responses were coded incorrect otherwise (e.g., {[}blip{]} or {[}bl\textscripta t{]} for \emph{blop}). If a response included multiple repetitions of a pseudoword in a single recording, it was marked correct if it contained at least one correct utterance of the relevant pseudoword. Overall accuracy in Picture Naming was 83\% (sd=0.16). Only correct responses were considered in the following analyses.
+
+\emph{Picture Naming X Dictation}
+
+The aim of the present analysis was to test the hypothesis that participant pronunciations of auditorily-learned L2 pseudowords would be influenced by generated orthographic representations of those pseudowords, reflected by their later proposed spellings in Dictation. Recall that in French, GPCs for graphemes \texttt{\textless{}}o\texttt{\textgreater{}} and \texttt{\textless{}}a\texttt{\textgreater{}} correspond to vowels /\textopeno/ and /a/, respectively. If French participant pronunciations of English /\textscripta/-vowel pseudowords are influenced by generated orthographic representations, we would expect pseudowords later spelled with \texttt{\textless{}}o\texttt{\textgreater{}} to be produced higher and backer (with lower F1 and F2) than pseudowords later spelled with \texttt{\textless{}}a\texttt{\textgreater{}} (thus, pulled towards corresponding /\textopeno/ and /a/ phonemes, respectively).
+
+For analyses, vowels in each correct response were segmented in Praat (Boersma \& Weenink, 2025) with a semi-automated alignment script. Then, first and second formant values (F1 and F2) were extracted from vowel midpoints. Finally, formant values were normalized following the Bladon, Henton, and Pickering (1984) procedure described and evaluated in Flynn and Foulkes (2011). Normalization formulas can be found in Table 2.
+
+\subsubsection{Table 2}\label{table-2}
+
+Formulas for speaker normalization by sex, from Bladon et al. (1984).
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Measure
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Formula
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Normalization at vowel midpoint for women & \emph{F\textsubscript{i}\textsuperscript{N}} = 26.81(\(\frac{F_i}{1960+F_i}\)) - 1.53 \\
+Normalization at vowel midpoint for men & \emph{F\textsubscript{i}\textsuperscript{N}} = 26.81(\(\frac{F_i}{1960+F_i}\)) - 0.53 \\
+\end{longtable}
+}
+
+Each normalized formant value was associated with the vowel letter of the participant's response for the relevant pseudoword in Dictation. Only formant values of pseudowords for which participants gave an \texttt{\textless{}}o\texttt{\textgreater{}} or \texttt{\textless{}}a\texttt{\textgreater{}} spelling in Dictation were analyzed, for a total of 925 data points for analysis. These data are mapped in the F1 by F2 vowel plot with corresponding Dictation vowel letter responses shown in Figure 2. Upon visual inspection, it seems that there is a separation of vowel midpoints in the F1xF2 space such that pseudowords later spelled with \texttt{\textless{}}o\texttt{\textgreater{}} are produced higher and backer than pseudowords later spelled with \texttt{\textless{}}a\texttt{\textgreater{}}, as expected.\\
+Statistical analyses confirmed this observation. Two separate generalized linear mixed regressions were conducted on normalized F1 and F2 values, respectively, with Vowel letter response in Dictation as a predictor. Results revealed a main effect of Vowel letter in the expected directions in both models; that is, lower F1 and lower F2 values were observed for pseudowords later spelled with \texttt{\textless{}}o\texttt{\textgreater{}} than with \texttt{\textless{}}a\texttt{\textgreater{}} (F1: \(\beta\)=0.63, SE=0.18, t=3.54, \(\chi^2(1)\)=9.10, p\textless0.01; F2: \(\beta\)=0.81, SE=0.15, t=5.25, \(\chi^2(1)\)=18.42, p\textless0.001). Full results from both models can be found in Appendix 4.
+
+\pandocbounded{\includegraphics[keepaspectratio]{Ortho-effects-auditory-L2-word-learning_2026-10-16_files/figure-latex/unnamed-chunk-12-1.pdf}}
+\textbf{Figure 2.} F1xF2 plot of vowel midpoints of Picture Naming responses. Data points are labeled with the vowel letter chosen in Dictation response. Ellipses represent 95\% confidence intervals.
+
+To investigate a possible additional influence of the speaker's vowel productions in the stimulus materials on participant vowel productions, a second set of generalized linear mixed regressions were run on participant normalized F1 and F2 values in a posthoc analysis. Fixed factors included Vowel Letter, for both models, and Speaker normalized F1 and F2 for the participant F1 and F2 models respectively. Continuous predictors were centered to help with convergence. The regression on participant F1 values yielded main effects of Vowel Letter (\(\beta\)=0.61, SE=0.18, t=3.44, \(\chi^2(1)\)=10.71, p\textless0.01) and Speaker F1 (\(\beta\)=0.70, SE=0.17, t=4.15, \(\chi^2(1)\)=6.48, p\textless0.001) in the expected directions: F1 values were lower (corresponding to a higher vowel) when speaker F1 values were lower and when participants used grapheme \texttt{\textless{}}o\texttt{\textgreater{}} (vs.~grapheme \texttt{\textless{}}a\texttt{\textgreater{}}) in Dictation responses. The regression on participant F2 values yielded a main effect of Vowel Letter only in the expected direction, i.e., participant F2 values were lower (corresponding to a backer vowel) when participants used grapheme \texttt{\textless{}}o\texttt{\textgreater{}} (vs.~grapheme \texttt{\textless{}}a\texttt{\textgreater{}}) in Dictation responses (\(\beta\)=0.72, SE=0.16, t=4.40, \(\chi^2(1)\)=14.34, p\textless0.001). No main effect of Speaker F2 was observed (p = 0.1). Therefore, effects of Vowel Letter response in Dictation on participant vowel formant values are observed even when potential variation in responses from variation in the speaker's productions are taken into account. Full model results can be found in Appendix 5.
+
+\section{Discussion}\label{discussion}
+
+Previous research demonstrates that when learning new words in a second language, seeing their spellings impacts how learners pronounce them (Bassetti \& Atkinson, 2015; Hayes-Harb et al., 2018; Rafat, 2016; Rafat et al., 2021; Welby et al., 2022b). In the present study, we examined the effect of orthographic knowledge on the productions of new L2 words that are learned without any orthographic input. Results from previous studies suggest that both native and non-native listeners generate spellings for new spoken words they encounter (Johnston et al., 2004; Wegener et al., 2023, 2018). In the present study, we test this hypothesis and additionally ask whether these auto-generated spellings in turn impact learners' pronunciations.
+
+French participants learned to associate spoken English pseudowords that featured the low back vowel /\textscripta / (e.g., \emph{blop} /bl\textscripta p/) with images of rare plants, animals and objects in two learning sessions over the course of two days, without any orthographic input. At test (Day 3), they named pseudowords aloud upon image presentation (Picture Naming), before ever having encountered their spellings. They were subsequently presented with possible spellings of the learned pseudowords with graphemes \texttt{\textless{}}o\texttt{\textgreater{}} and \texttt{\textless{}}a\texttt{\textgreater{}} (e.g., \emph{blop} \textasciitilde{} \emph{blap}) intermixed with spellings for similar pseudowords they had not learned (e.g., \emph{blep} \textasciitilde{} \emph{blit}) and categorized each spelling as either a learned (Old) or a non-learned word (New). Finally, they provided their own spellings for each pseudoword upon presentation of its spoken form (Dictation). We measured whether the spellings the participants provided in the Dictation task corresponded with their vowel productions in the Picture Naming task as well as with their spelling choices and response times in the Old/New task.
+
+Even though French participants completed the Dictation task after being presented with possible pseudoword spellings in the Old/New task, they exhibited a higher rate of Old responses (``yes, I learned this word'') and faster reaction times in the Old/New task to English pseudoword spellings in which the vowel grapheme presented on the screen matched the vowel grapheme in their own later spellings in Dictation (either with \texttt{\textless{}}a\texttt{\textgreater{}} or \texttt{\textless{}}o\texttt{\textgreater{}}, e.g., \emph{blap} or \emph{blop}). That participants already exhibited a preference for spellings upon first presentation in the Old/New task that matched their later spellings in Dictation is as predicted under the hypothesis that participants had formed orthographic representations of the words prior to encountering their written forms. Additionally, participant vowel formants extracted from responses in the Picture Naming task aligned with French vowel production targets corresponding to their own later spellings of the pseudowords in Dictation (i.e., vowels later spelled with \texttt{\textless{}}a\texttt{\textgreater{}} were produced closer to /a/, vowels later spelled with \texttt{\textless{}}o\texttt{\textgreater{}} were produced closer to /\textopeno /), above and beyond the influence of the model speaker's productions found on participant formant values. This second finding is congruent with the hypothesis that the participants' orthographic representations generated during learning in turn influenced their vowel productions, prior to any exposure to the written form. As such, this result provides a potential explanation for the larger dispersion of formant values for English pseudowords with /\textscripta / learned without orthographic input in our previous work with French learners of English (Welby et al., 2022b), i.e., that participants in that experiment generated both \texttt{\textless{}}o\texttt{\textgreater{}} and \texttt{\textless{}}a\texttt{\textgreater{}} spellings that they used as production targets for words learned without orthography, compared to only \texttt{\textless{}}o\texttt{\textgreater{}} for words learned with orthography. Taken together, these results add to and extend previous work examining orthographic effects on the comprehension and processing of newly-encountered spoken words (Johnston et al., 2004; Wegener et al., 2023) to suggest an influence of orthographic knowledge on their pronunciations, even in the absence of orthographic input.
+
+French participants chose both \texttt{\textless{}}a\texttt{\textgreater{}} and \texttt{\textless{}}o\texttt{\textgreater{}} spellings for the novel words in the Old/New task but exhibited an overall preference for \texttt{\textless{}}a\texttt{\textgreater{}} over \texttt{\textless{}}o\texttt{\textgreater{}} (e.g., \emph{blap} \textgreater{} \emph{blop}), both in the Old/New task and in their own spellings in the Dictation task. This result implies that they relied more often on L1 French grapheme-to-phoneme correspondences (GPCs) in constructing orthographic representations for the L2 English pseudowords. (The conventional GPC for English /\textscripta / is with letter \texttt{\textless{}}o\texttt{\textgreater{}} as in \emph{stock} or \emph{pot}, not \texttt{\textless{}}a\texttt{\textgreater{}}, which corresponds more frequently with English /\ae{}/ as in \emph{stack} or \emph{pat}.) Moreover, participant vowel productions aligned with their Dictation responses based on L1 French GPCs, resulting in a large portion of vowel productions in the range of French /a/ (and outside the L1 range for English /\textscripta /), particularly along the F2 dimension. The question arises whether the prominent influence of L1 orthographic and phonological information observed on learners' spelling preferences and pronunciations of L2 pseudowords is the result of the participants' immersion in their L1 language environment and therefore lesser reported current exposure to English (mean=24\%), both as listeners and as readers. In this case, vowel productions that approach French vowel formant values could be the result of exposure to French-accented English being the most common variety of English heard by our participants. Further research comparing immersed and non-immersed L2 users is needed to test the role of current L2 exposure on the role of L1 orthographic knowledge on the development of L2 phonological representations in word learning.
+
+Nonetheless, French participants provided an \texttt{\textless{}}o\texttt{\textgreater{}} spelling in Dictation responses in a non-negligible number of cases. It is possible that for these words, participants relied on English GPCs (i.e., that vowel /\textscripta / is typically linked to grapheme \texttt{\textless{}}o\texttt{\textgreater{}} in English) to generate their responses. Alternatively, the choice of the spelling could have been influenced by variation in the speaker's productions, i.e., they chose grapheme \texttt{\textless{}}o\texttt{\textgreater{}} for those productions that were closer to French vowel /\textopeno /. In an exploratory analysis, we examined whether speaker vowel formant values correlated with participants' spelling responses in Dictation. We found this to be the case: as speaker F1 and F2 decreased, the probability of an \texttt{\textless{}}o\texttt{\textgreater{}} response in Dictation increased. \footnote{We also ran an exploratory analysis on the effect of Speaker F1 and F2 on Participant F1 and F2 values, reported in the Results section above. Participant F1 values were predicted both by Speaker F1 and Vowel Letter response in Dictation, and Participant F2 values were predicted by Vowel Letter response in Dictation, but no effect of Speaker F2 was observed. This analysis suggests that pronunciation is impacted both by what participants heard and their own spellings. On why no effect of speaker F2 is observed can be seen when comparing normalized formant value ranges of the speaker with the participants (Appendix 1 and Figure 2): while speaker and participant F1 values fall within similar ranges (approximately 4-7 Bladon normalized), the range of participant F2 values extends notably higher (fronter) than that of the speaker's F2 values (12+ vs. 10 Bladon normalized, for participants and speaker, respectively), aligning more closely with the range expected for French /a/. That is, though L2 participants were sensitive to speaker vowel height in choosing production targets for pseudoword vowels, they produced fronter formant values than those they had heard from the speaker, suggesting a greater influence of L1 orthographic and/or phonological information along this dimension in their vowel productions.} It is possible that analogies with existing English words (e.g., \emph{wasp} for \emph{lasp}) played a role as well. An interesting question for future research would be to determine how stable participant spellings are during novel word learning, as this could inform us as to whether part of the variation we see in Dictation responses in fact reflects an instability in L2 learners' developing orthographic and/or phonological representations.
+
+So far, we have interpreted our results under the assumption that our L2 participants generated an orthographic representation for the novel words they encountered in the auditory modality, in line with empirical findings in L1 novel word learning research (Johnston et al., 2004; Wegener et al., 2023, 2018). Under this assumption, the fact that the spellings chosen by our participants correlated with their pronunciations prior to spelling exposure suggests that generated orthographic representations influenced their phonological representations of the novel words, or were activated in parallel during the naming of novel words. Notably, our findings can be explained without reference to an automatically generated orthographic representation: it could be argued that our French participants formed and stored auditory phonological representations only, which corresponded to or were more similar to French /a/ or French /\textopeno / depending on the word (i.e., English /\textscripta / was assimilated to either of the two French low vowels and a unimodal auditory phonological representation of each word developed accordingly). Under this scenario, in the Old/New task, lower acceptance of and slower reaction times to mismatching spellings from their Dictation responses would be a direct result of a mismatching or slower comparison of the phonological categories activated by the orthographic form on the screen (whether L1 or L2) with their developed auditory phonological representation of each pseudoword. Orthographic representations could have then first been developed during the Old/New task or even at the Dictation task, further, participant spelling responses in Dictation (to a single heard instance of each pseudoword during the task) could have been guided by their auditory phonological representation of the vowel, as previously discussed. In the Picture Naming task, production targets for pseudoword vowels could then be assimilated auditory phonological percepts instead of orthographic representations. Considered in isolation, the data of the current experiment do not allow us to distinguish between the two interpretations. Given the evidence for the generation of orthographic word forms during native word learning discussed herein and for the activation of orthographic information during native speech perception seen in masked priming experiments with lexical decision (Chéreau et al., 2007; Hallé, Chéreau, \& Segui, 2000; Ziegler et al., 2004), we maintain that the activation of orthographic information in an L2 word learning context is a plausible explanation for our results. The results of the present study encourage further research comparing L2 learners' production and orthographic representation of newly-encountered L2 words with their perception in order to start to disentangle the two accounts.
+
+To conclude, previous work shows that orthographic input in L2 word learning can render productions more L1-like, as learners recruit L1 phonemes from provided L2 spellings that they use as production targets (Hayes-Harb et al., 2018; Welby et al., 2022b). Here, we show that in the absence of orthographic input, L2 learners more often rely on L1 grapheme-to-phoneme correspondences (GPCs) to choose their own spellings for novel L2 pseudowords; further, their chosen spellings align with their pronunciations of pseudoword vowels, elicited before they had encountered or produced any spellings of their own. Taken together, these results suggest that L1 orthographic knowledge plays a role in the development of phonological and orthographic representations in L2 word learning even when no orthography is present in training. In addition to uncovering new questions about the role of orthographic information in L2 phonological word learning, these results carry practical implications for L2 pronunciation pedagogy: if L1 orthographic information interferes with L2 pronunciation learning even in the absence of orthographic input, then targeted interventions to not only draw attention to (as in Hayes-Harb et al. (2018)) but train to overcome the influence of conflicting GPCs between native and target languages should be developed to improve learning outcomes.
+
+\section{Acknowledgements}\label{acknowledgements}
+
+This research was funded by the Swiss National Science Foundation - grant number 229932. We further thank the University of Potsdam (Germany), where the data was collected, and acknowledge the support of the Deutsche Forschungsgemeinschaft (DFG - German Research Foundation) and the Agence Nationale de la Recherche (ANR
+- French National Research Agency).
+
+\newpage
+
+\section{References}\label{references}
+
+\protect\phantomsection\label{refs}
+\begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-barrios2020second}
+Barrios, S. L., \& Hayes-Harb, R. (2020). Second language learning of phonological alternations with and without orthographic input: Evidence from the acquisition of a {G}erman-like voicing alternation. \emph{Applied Psycholinguistics}, \emph{41}(3), 517--545.
+
+\bibitem[\citeproctext]{ref-bassetti2017orthography}
+Bassetti, B. (2017). Orthography affects second language speech: Double letters and geminate production in {E}nglish. \emph{Journal of Experimental Psychology: Learning, Memory, and Cognition}, \emph{43}(11), 1835.
+
+\bibitem[\citeproctext]{ref-bassetti2015effects}
+Bassetti, B., \& Atkinson, N. (2015). Effects of orthographic forms on pronunciation in experienced instructed second language learners. \emph{Applied Psycholinguistics}, \emph{36}(1), 67--91.
+
+\bibitem[\citeproctext]{ref-R-lme4}
+Bates, D., Mächler, M., Bolker, B., \& Walker, S. (2015). Fitting linear mixed-effects models using {lme4}. \emph{Journal of Statistical Software}, \emph{67}(1), 1--48. \url{https://doi.org/10.18637/jss.v067.i01}
+
+\bibitem[\citeproctext]{ref-bladon1984towards}
+Bladon, R. A. W., Henton, C. G., \& Pickering, J. B. (1984). Towards an auditory theory of speaker normalization. \emph{Language \& Communication}, \emph{4}(1), 59--69.
+
+\bibitem[\citeproctext]{ref-praat}
+Boersma, P., \& Weenink, D. (2025). \emph{Praat: Doing phonetics by computer {[}computer program{]}.} Retrieved from \url{https://praat.org}
+
+\bibitem[\citeproctext]{ref-burki2019orthography}
+Bürki, A., Welby, P., Clément, M., \& Spinelli, E. (2019). Orthography and second language word learning: Moving beyond {``friend or foe?''} \emph{The Journal of the Acoustical Society of America}, \emph{145}(4), EL265--EL271.
+
+\bibitem[\citeproctext]{ref-chereau2007reading}
+Chéreau, C., Gaskell, M. G., \& Dumay, N. (2007). Reading spoken words: Orthographic effects in auditory priming. \emph{Cognition}, \emph{102}(3), 341--360.
+
+\bibitem[\citeproctext]{ref-flynn2011comparing}
+Flynn, N., \& Foulkes, P. (2011). Comparing vowel formant normalization methods. \emph{ICPhS}, \emph{17}, 683--686.
+
+\bibitem[\citeproctext]{ref-halle2000b}
+Hallé, P. A., Chéreau, C., \& Segui, J. (2000). Where is the/b/in {``absurde''}{[}apsyrd{]}? It is in french listeners' minds. \emph{Journal of Memory and Language}, \emph{43}(4), 618--639.
+
+\bibitem[\citeproctext]{ref-hayes2018orthographic}
+Hayes-Harb, R., Brown, K., \& Smith, B. L. (2018). Orthographic input and the acquisition of {G}erman final devoicing by native speakers of {E}nglish. \emph{Language and Speech}, \emph{61}(4), 547--564.
+
+\bibitem[\citeproctext]{ref-johnston2004evidence}
+Johnston, M., McKague, M., \& Pratt, C. (2004). Evidence for an automatic orthographic code in the processing of visually novel word forms. \emph{Language and Cognitive Processes}, \emph{19}(2), 273--317.
+
+\bibitem[\citeproctext]{ref-SoSciSurvey}
+Leiner, D. J. (2024). \emph{SoSci survey (version 3.5.01) {[}computer software{]}.} Retrieved from \url{https://www.soscisurvey.de}
+
+\bibitem[\citeproctext]{ref-marian2007language}
+Marian, V., Blumenfeld, H. K., \& Kaushanskaya, M. (2007). The language experience and proficiency questionnaire (LEAP-q): Assessing language profiles in bilinguals and multilinguals. \emph{Language}.
+
+\bibitem[\citeproctext]{ref-perre2008line}
+Perre, L., \& Ziegler, J. C. (2008). On-line activation of orthography in spoken word recognition. \emph{Brain Research}, \emph{1188}, 132--138.
+
+\bibitem[\citeproctext]{ref-R-base}
+R Core Team. (2024). \emph{R: A language and environment for statistical computing}. Vienna, Austria: R Foundation for Statistical Computing. Retrieved from \url{https://www.R-project.org/}
+
+\bibitem[\citeproctext]{ref-rafat2015interaction}
+Rafat, Y. (2015). The interaction of acoustic and orthographic input in the acquisition of spanish assibilated/fricative rhotics. \emph{Applied Psycholinguistics}, \emph{36}(1), 43--66.
+
+\bibitem[\citeproctext]{ref-rafat2016orthography}
+Rafat, Y. (2016). Orthography-induced transfer in the production of {E}nglish-speaking learners of {S}panish. \emph{The Language Learning Journal}, \emph{44}(2), 197--213.
+
+\bibitem[\citeproctext]{ref-rafat2021first}
+Rafat, Y., Whitford, V., Joanisse, M. F., Swiderski, N., Cornwell, S., Mohaghegh, M., \ldots{} Habibi, L. (2021). First-language-specific orthographic effects in second-language speech. \emph{Journal of Monolingual and Bilingual Speech}, \emph{3}(1), 102--122.
+
+\bibitem[\citeproctext]{ref-steele2005assessing}
+Steele, J. (2005). Assessing the role of orthographic versus uniquely auditory input in acquiring new L2 segments. \emph{7{è}mes Rencontres Internationales Du r{é}seau Fran{ç}ais de Phonologie}, 2--4.
+
+\bibitem[\citeproctext]{ref-taft2008automatic}
+Taft, M., Castles, A., Davis, C., Lazendic, G., \& Nguyen-Hoan, M. (2008). Automatic activation of orthography in spoken word recognition: Pseudohomograph priming. \emph{Journal of Memory and Language}, \emph{58}(2), 366--379.
+
+\bibitem[\citeproctext]{ref-wegener2023orthographic}
+Wegener, S., Wang, H.-C., Beyersmann, E., Nation, K., Colenbrander, D., \& Castles, A. (2023). Orthographic expectancies in the absence of contextual support. \emph{Scientific Studies of Reading}, \emph{27}(2), 187--197.
+
+\bibitem[\citeproctext]{ref-wegener2018children}
+Wegener, S., Wang, H.-C., De Lissa, P., Robidoux, S., Nation, K., \& Castles, A. (2018). Children reading spoken words: Interactions between vocabulary and orthographic expectancy. \emph{Developmental Science}, \emph{21}(3), e12577.
+
+\bibitem[\citeproctext]{ref-welbyroles}
+Welby, P., Spinelli, E., \& Bürki, A. (2022a). \emph{Does spelling provide a phonological target even when spelling is not provided?} Oral presentation at the 18th Meeting of the Association for Laboratory Phonology (LabPhon 17), online.
+
+\bibitem[\citeproctext]{ref-welby2022spelling}
+Welby, P., Spinelli, E., \& Bürki, A. (2022b). Spelling provides a precise (but sometimes misplaced) phonological target. Orthography and acoustic variability in second language word learning. \emph{Journal of Phonetics}, \emph{94}, 101172.
+
+\bibitem[\citeproctext]{ref-woods2017headphone}
+Woods, K. J., Siegel, M. H., Traer, J., \& McDermott, J. H. (2017). Headphone screening to facilitate web-based auditory experiments. \emph{Attention, Perception, \& Psychophysics}, \emph{79}(7), 2064--2072.
+
+\bibitem[\citeproctext]{ref-PCIbex}
+Zehr, J., \& Schwarz, F. (2018). \emph{PennController for internet based experiments (IBEX).} Retrieved from \url{https://doc.pcibex.net/}
+
+\bibitem[\citeproctext]{ref-ziegler1998orthography}
+Ziegler, J. C., \& Ferrand, L. (1998). Orthography shapes the perception of speech: The consistency effect in auditory word recognition. \emph{Psychonomic Bulletin \& Review}, \emph{5}(4), 683--689.
+
+\bibitem[\citeproctext]{ref-ziegler2004visual}
+Ziegler, J. C., Ferrand, L., \& Montant, M. (2004). Visual phonology: The effects of orthographic consistency on different auditory word recognition tasks. \emph{Memory \& Cognition}, \emph{32}(5), 732--741.
+
+\end{CSLReferences}
+
+\newpage
+
+\appendix
+
+
+\subsubsection{Appendix 1}\label{appendix-1}
+
+Vowel midpoints of pseudoword stimuli produced by talker (Bark scale). Each pseudoword was produced four times.
+\pandocbounded{\includegraphics[keepaspectratio]{Ortho-effects-auditory-L2-word-learning_2026-10-16_files/figure-latex/unnamed-chunk-29-1.pdf}}
+
+\subsubsection{Appendix 2}\label{appendix-2}
+
+Dictation responses by vowel item.
+\pandocbounded{\includegraphics[keepaspectratio]{Ortho-effects-auditory-L2-word-learning_2026-10-16_files/figure-latex/unnamed-chunk-30-1.pdf}}
+
+\subsection{Appendix 3}\label{appendix-3}
+
+\begin{longtable}[t]{llll}
+\caption{\label{tab:unnamed-chunk-31}Old/New: Proportion Old responses by Match (to response in Dictation) and Button Order}\\
+\toprule
+\em{Predictors} & \em{Estimate} & \em{SE} & \em{p}\\
+\midrule
+Intercept & 1.50 & 0.50 & 0.003\\
+Match & -4.26 & 0.96 & <.001\\
+Button Group & 0.06 & 0.50 & 0.911\\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[t]{llll}
+\caption{\label{tab:unnamed-chunk-32}Old/New: Response latencies by Match (to response in Dictation) and Button Order}\\
+\toprule
+\em{Predictors} & \em{Estimate} & \em{SE} & \em{p}\\
+\midrule
+Intercept & 1267.15 & 84.52 & <.001\\
+Match & -303.53 & 47.71 & <.001\\
+Button Group & -19.37 & 111.76 & 0.864\\
+\bottomrule
+\end{longtable}
+
+\subsection{Appendix 4}\label{appendix-4}
+
+\begin{longtable}[t]{lllr}
+\caption{\label{tab:unnamed-chunk-33}Picture Naming: F1 (first formant) by Vowel letter response in Dictation}\\
+\toprule
+\em{Predictors} & \em{Estimate} & \em{SE} & \em{p}\\
+\midrule
+Intercept & -0.12 & 0.17 & 0.500\\
+Vowel Letter & 0.63 & 0.18 & 0.004\\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[t]{llll}
+\caption{\label{tab:unnamed-chunk-34}Picture Naming: F2 (second formant) by Vowel letter response in Dictation}\\
+\toprule
+\em{Predictors} & \em{Estimate} & \em{SE} & \em{p}\\
+\midrule
+Intercept & -0.25 & 0.14 & 0.089\\
+Vowel Letter & 0.81 & 0.15 & <.001\\
+\bottomrule
+\end{longtable}
+
+\subsection{Appendix 5}\label{appendix-5}
+
+\begin{longtable}[t]{llll}
+\caption{\label{tab:unnamed-chunk-35}Picture Naming: F1 (first formant) by Vowel letter response in Dictation and Talker F1}\\
+\toprule
+\em{Predictors} & \em{Estimate} & \em{SE} & \em{p}\\
+\midrule
+Intercept & -0.08 & 0.18 & 0.645\\
+Vowel Letter & 0.61 & 0.18 & 0.003\\
+Talker F1 & 0.70 & 0.17 & <.001\\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[t]{llll}
+\caption{\label{tab:unnamed-chunk-36}Picture Naming: F2 (second formant) by Vowel letter response in Dictation and Talker F2}\\
+\toprule
+\em{Predictors} & \em{Estimate} & \em{SE} & \em{p}\\
+\midrule
+Intercept & -0.19 & 0.12 & 0.111\\
+Vowel Letter & 0.72 & 0.16 & <.001\\
+Talker F2 & 0.57 & 0.11 & 0.096\\
+\bottomrule
+\end{longtable}
+
+
+\end{document}
